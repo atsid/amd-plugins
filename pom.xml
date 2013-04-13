@@ -2,11 +2,12 @@
 <!--
 This is a simple POM file that can run the jsTestDriver unit tests and generate a jar file containing the library
 for publishing in a maven repository. It can be used in the following ways.
- - "mvn test" will copy necessary files to the target directory and run devjsTestDriver.conf
+ - "mvn test" will run jsTestDriver using the jsTestDriver.conf file
  - "mvn install" will add the production of a jar maven artifact containing the library and publish it to your local maven repository
  - "mvn deploy" will add publishing to a remote maven repository, if you define the repository and have the correct access to it.
 
  Tests are run against chrome, defined by the browser.executable property, change this property to run against other browsers.
+ Some platforms ignore this property and use the default browser.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
