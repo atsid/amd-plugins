@@ -12,8 +12,10 @@ require([
 
         //we expect the props variable from the plugin to be a simple JS map
         testPropertiesJSON: function () {
+            jstestdriver.console.log(JSON.stringify(props));
             assertEquals("hi", props.name);
             assertEquals("1.2.3", props["dot.delimited"]);
+            assertEquals("ok", props["with.spaces"]);
         }
 
     });

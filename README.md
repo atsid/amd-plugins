@@ -19,8 +19,13 @@ that need them.
 ## properties.js
 The properties plugin loads Java-style name=value pair properties files and turns them in the JSON.
 
+See http://en.wikipedia.org/wiki/.properties
+
 ## TODO
 Need to move the require.js and text.js files into a lib directory so it is more clear that they are external dependencies.
+
+## Compatibility
+ECMA5 compatibility is assumed - if you need to use in a legacy browser, consider a shim.
 
 ##License
 This software is licensed under the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0).

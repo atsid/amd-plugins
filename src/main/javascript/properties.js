@@ -2,7 +2,8 @@
  * A properties-file reader plugin for requirejs. This plugin reads files in the standard Java properties key=value
  * form and passes them through as a JSON object for JavaScript use.
  *
- * Pretty simple, doesn't really do any validation or error recovery.
+ * Doesn't support all the variants of the .properties format yet, but handles comments and some spaces fine.
+ * See http://en.wikipedia.org/wiki/.properties
  *
  * Depends on jburke's text plugin: https://github.com/requirejs/text
  */
@@ -30,8 +31,19 @@ define([
 
                         //just iterate the lines in the file's string content, pulling apart the name-value pairs
                         props.split("\n").forEach(function (line) {
-                            var tuple = line.split("=");
-                            json[tuple[0]] = tuple[1];
+
+                            line = line.trim();
+
+                            //avoid leading comment characters
+                            if (line.indexOf("#") !== 0 && line.indexOf("!") !== 0) {
+
+                                var tuple = line.split("="),
+                                    name = tuple[0].trim(),
+                                    value = tuple[1].trim();
+
+                                json[name] = value;
+
+                            }
                         });
 
                     }
