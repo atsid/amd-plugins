@@ -16,6 +16,11 @@ that need them.
 ### ioc TODO
 - Right now it only supports constructors that take a map of simple properties. We'd like to implement a "ref" mechanism for passing in other beans.
 
+## properties.js
+The properties plugin loads Java-style name=value pair properties files and turns them in the JSON.
+
+## TODO
+Need to move the require.js and text.js files into a lib directory so it is more clear that they are external dependencies.
 
 ##License
 This software is licensed under the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0).
