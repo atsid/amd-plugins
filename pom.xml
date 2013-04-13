@@ -17,22 +17,9 @@ for publishing in a maven repository. It can be used in the following ways.
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<!-- PROJECT PROPERTIES -->
 	<properties>
-		<jstestdriver.server>localhost</jstestdriver.server>
-		<test.source.output>${project.build.directory}/test-source</test.source.output>
-		<js.output.path>${project.build.directory}/${project.build.finalName}/js</js.output.path>
-		<javascript.source>${basedir}/src/main/javascript</javascript.source>
 		<browser.executable>${user.home}\AppData\Local\Google\Chrome\Application\chrome.exe</browser.executable>
 	</properties>
-
-    <distributionManagement>
-        <repository>
-            <id>your-repo</id>
-            <name>Your Repo</name>
-            <url>https://your-repo.host.com/repo</url>
-        </repository>
-    </distributionManagement>
 
 	<pluginRepositories>
 		<pluginRepository>
@@ -58,27 +45,13 @@ for publishing in a maven repository. It can be used in the following ways.
 	</dependencies>
 
 	<build>
-		<testOutputDirectory>${project.build.directory}/test-source/test</testOutputDirectory>
-		<resources>
-			<resource>
-				<directory>${javascript.source}</directory>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>${basedir}/src/test</directory>
-			</testResource>
-			<testResource>
-				<directory>${javascript.source}</directory>
-			</testResource>
-		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
-					<classesDirectory>${javascript.source}</classesDirectory>
+					<classesDirectory>${basedir}/src/main/javascript</classesDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -94,7 +67,6 @@ for publishing in a maven repository. It can be used in the following ways.
 						</goals>
 						<configuration>
 							<debug>true</debug>
-							<!-- Defined in <profile> elements below. -->
 							<browser>${browser.executable}</browser>
 							<port>4224</port>
 							<config>${basedir}/jsTestDriver.conf</config>
