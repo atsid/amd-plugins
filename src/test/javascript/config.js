@@ -9,11 +9,15 @@
         config: {
             "plugins/ioc": {
                 "beans": {
-                    "test/FakeModule": {
+                    "fakemodule1": {
                         "type": "test/FakeModule",
                         "params": {
                             "name": "hello"
                         }
+                    },
+                    //no params on this one, as we're going to pass them into load() directly
+                    "fakemodule2": {
+                        "type": "test/FakeModule"
                     }
                 }
             }

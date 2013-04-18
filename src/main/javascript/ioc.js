@@ -56,16 +56,20 @@ define([
              * @param {string} name - name of module to load. Will be pre-normalized by AMD.
              * @param {function} parentRequire - require function with local scope for loading modules synchronously.
              * @param {function} onload - callback function to invoke with this plugin's output
-             * @param {object} config - config object for the plugin. NOTE this is not supported by dojo/bdload.
+             * @param {object} config - config object for the plugin. The intent of the IOC plugin is to create object instances,
+             *          so config sent in here is assumed to be constructor args for the module.
+             *          NOTE this is not supported by dojo/bdload, but can be used when invoking ioc.load directly, such as by other plugins.
              */
             load: function (name, parentRequire, onload, config) {
 
-                var bean = beans[name];
+                var bean = beans[name], params;
 
                 if (bean) {
 
+                    params = bean.params || config; //if bean is already configured by centralized beans use that, otherwise default to config value
+
                     parentRequire([bean.type], function (Module) {
-                        var instance = new Module(bean.params);
+                        var instance = new Module(params);
                         onload(instance);
                     });
 

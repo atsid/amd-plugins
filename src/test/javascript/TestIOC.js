@@ -4,7 +4,7 @@
  */
 require([
     "test/FakeModule",
-    "plugins/ioc!test/FakeModule"
+    "plugins/ioc!fakemodule1"
 ], function (
     FakeModuleConstructor,
     fakeModuleInstance
@@ -15,13 +15,17 @@ require([
         //if we request the module without the plugin, it is just a constructor function
         testFakeModuleConstructor: function () {
             var instance = new FakeModuleConstructor({name: "goodbye"});
+            jstestdriver.console.log(JSON.stringify(instance));
             assertEquals("goodbye", instance.name);
+            assertEquals("a fake module", instance.title);
         },
 
         //if we request it with the plugin, it is an instance with args passed from
         //the beans defined for the plugin in config.js
         testFakeModuleInstance: function () {
+            jstestdriver.console.log(JSON.stringify(fakeModuleInstance));
             assertEquals("hello", fakeModuleInstance.name);
+            assertEquals("a fake module", fakeModuleInstance.title);
         }
 
     });
