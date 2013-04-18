@@ -1,14 +1,23 @@
 /**
  * This is a little different way to test - what we're going to do is simply use the plugin and validate properties
  * on the modules that are loaded, essentially letting requirejs do its part and validating we've done ours.
+ *
+ * We'll also exercise the plugin directly.
  */
 require([
+    "plugins/ioc",
     "test/FakeModule",
     "plugins/ioc!fakemodule1"
 ], function (
+    ioc,
     FakeModuleConstructor,
     fakeModuleInstance
 ) {
+
+    //for the direct ioc.load invocation tests, we'll just pass back the already-loaded module so we don't have to write async tests
+    var mockRequire = function (deps, callback) {
+        callback(FakeModuleConstructor);
+    };
 
     TestCase("TestIOC", {
 
@@ -26,6 +35,33 @@ require([
             jstestdriver.console.log(JSON.stringify(fakeModuleInstance));
             assertEquals("hello", fakeModuleInstance.name);
             assertEquals("a fake module", fakeModuleInstance.title);
+        },
+
+        //tests that the config param on the load function is passed as ctor args to the module being instantiated
+        testLoadConfigUndefined: function () {
+
+            ioc.load("fakemodule2", mockRequire, function (instance) {
+
+                jstestdriver.console.log(JSON.stringify(instance));
+                assertUndefined(instance.name);
+                assertEquals("a fake module", instance.title);
+
+            });
+
+        },
+
+        testLoadConfigExists: function () {
+
+            ioc.load("fakemodule2", mockRequire, function (instance) {
+
+                jstestdriver.console.log(JSON.stringify(instance));
+                assertEquals("gotcha", instance.name);
+                assertEquals("a fake module", instance.title);
+
+            }, {
+                name: "gotcha"
+            });
+
         }
 
     });
