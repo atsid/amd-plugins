@@ -59,8 +59,22 @@ require([
                 assertEquals("a fake module", instance.title);
 
             }, {
-                name: "gotcha"
+                "params": {
+                    name: "gotcha"
+                }
             });
+
+        },
+
+        testLoadError: function () {
+
+            try {
+                ioc.load("fakemodule3");
+                assertTrue(false);
+            } catch (e) {
+                assertEquals("Error: IOC bean [fakemodule3] requested, but no config found.", e);
+                jstestdriver.console.log("Got expected error: " + e);
+            }
 
         }
 

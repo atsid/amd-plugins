@@ -40,15 +40,25 @@
  * The type can then be a different class that implements the same methods, but is injected by the IOC container.
  * You can of course use whatever you'd like for the bean ID, this is just a convention we've found helpful given the dynamic nature of JavaScript.
  *
+ * You may also want to use this plugin directly, invoking its load method. If you want to get point-of-use args instead
+ * of the global config that requirejs will pass in, send a config object with a "params" field containing the same params a bean config would:
+ * load(name, require, callback, {
+ *     params: {
+ *         "logLevel: "DEBUG"
+ *     }
+ * });
+ *
+ * A global bean config must still exist for the bean that declares its type! This mechanism just allows for runtime customization of the ctor params
+ * when using the ioc plugin directly.
  */
 define([
     "module"
 ], function (
     module
-    ) {
+) {
 
-    var config = module.config(),
-        beans = config.beans,
+    var conf = module.config(),
+        beans = conf ? conf.beans : {},
         plugin = {
 
             /**
@@ -57,16 +67,18 @@ define([
              * @param {function} parentRequire - require function with local scope for loading modules synchronously.
              * @param {function} onload - callback function to invoke with this plugin's output
              * @param {object} config - config object for the plugin. The intent of the IOC plugin is to create object instances,
-             *          so config sent in here is assumed to be constructor args for the module.
+             *          so config sent in here is assumed to be constructor args for the module, attached to a "params" field.
              *          NOTE this is not supported by dojo/bdload, but can be used when invoking ioc.load directly, such as by other plugins.
              */
             load: function (name, parentRequire, onload, config) {
 
-                var bean = beans[name], params;
+                var bean = beans[name],
+                    params = config && config.params;
 
                 if (bean) {
 
-                    params = bean.params || config; //if bean is already configured by centralized beans use that, otherwise default to config value
+                    //local bean config wins, otherwise use global
+                    params = params || bean.params;
 
                     parentRequire([bean.type], function (Module) {
                         var instance = new Module(params);
