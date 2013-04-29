@@ -16,6 +16,17 @@ that need them.
 ### ioc TODO
 - Right now it only supports constructors that take a map of simple properties. We'd like to implement a "ref" mechanism for passing in other beans.
 
+## jsonschema.js
+The jsonschema plugin reads JSON Schema files (http://tools.ietf.org/html/draft-zyp-json-schema-03) and recursively resolves
+any $ref properties to load an entire schema file including external schemas. It returns a live JavaScript object that can be used
+by JSON Schema libraries such as validators or the other JSON Schema processors we've published (https://github.com/atsid/circuits-js,
+https://github.com/atsid/schematic-js, https://github.com/atsid/bullhorn-js).
+
+### jsonschema TODO
+The plugin only does simple processing of the $ref values, and does not yet attempt to do full resolution of identifiers such
+as self reference (#). However, a formatter function can be supplied that manipulates the schema name, so advanced processing
+or transformation can be done if required.
+
 ## properties.js
 The properties plugin loads Java-style name=value pair properties files and turns them in the JSON.
 
