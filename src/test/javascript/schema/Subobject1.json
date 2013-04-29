@@ -1,0 +1,12 @@
+{
+    "id": "Subobject1",
+    "description": "Simple schema, that also includes a recursive self-reference so we can test appropriate handling",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "recursive": {
+            "$ref": "Subobject1"
+        }
+    }
+}

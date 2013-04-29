@@ -1,0 +1,9 @@
+{
+    "id": "Schema1",
+    "description": "Test schema for ensuring $ref resolution is correct. Note simplified id, so we can test the formatter function.",
+    "properties": {
+        "subobject": {
+            "$ref": "Subobject1"
+        }
+    }
+}

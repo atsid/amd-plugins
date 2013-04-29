@@ -20,6 +20,11 @@
                         "type": "test/FakeModule"
                     }
                 }
+            },
+            "plugins/jsonschema": {
+                formatter: function (name) {
+                    return "test/schema/" + name + ".json";
+                }
             }
         }
     });
