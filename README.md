@@ -11,10 +11,7 @@ doors for application configuration, with the added bonus of built-in cache mana
 ## ioc.js
 The IOC plugin allows for Spring-like injection of dependencies. The basic idea is that you define each of your JavaScript
 modules as constructors (like classes), and then use Inversion-of-Control to get instances of them passed to other modules
-that need them.
-
-### ioc TODO
-- Right now it only supports constructors that take a map of simple properties. We'd like to implement a "ref" mechanism for passing in other beans.
+that need them. The plugin supports a simple reference mechanism to reference other beans in bean's configuration parameters.
 
 ## jsonschema.js
 The jsonschema plugin reads JSON Schema files (http://tools.ietf.org/html/draft-zyp-json-schema-03) and recursively resolves
