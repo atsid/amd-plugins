@@ -18,6 +18,14 @@
                     //no params on this one, as we're going to pass them into load() directly
                     "fakemodule2": {
                         "type": "test/FakeModule"
+                    },
+                    //params reference another bean.
+                    "fakemodule3": {
+                        "type": "test/FakeModule",
+                        "params": {
+                            "title": "replaced title",
+                            "name": "ref:plugins/ioc!fakemodule1"
+                        }
                     }
                 }
             },

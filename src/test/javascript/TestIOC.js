@@ -7,11 +7,13 @@
 require([
     "plugins/ioc",
     "test/FakeModule",
-    "plugins/ioc!fakemodule1"
+    "plugins/ioc!fakemodule1",
+    "plugins/ioc!fakemodule3"
 ], function (
     ioc,
     FakeModuleConstructor,
-    fakeModuleInstance
+    fakeModuleInstance,
+    refFakeModuleInstance
 ) {
 
     //for the direct ioc.load invocation tests, we'll just pass back the already-loaded module so we don't have to write async tests
@@ -66,13 +68,20 @@ require([
 
         },
 
+        testRefParameter: function () {
+            assertNotUndefined(refFakeModuleInstance);
+            jstestdriver.console.log(JSON.stringify(refFakeModuleInstance));
+            assertEquals("hello", refFakeModuleInstance.name);
+            assertEquals("replaced title", refFakeModuleInstance.title);
+        },
+
         testLoadError: function () {
 
             try {
-                ioc.load("fakemodule3");
+                ioc.load("fakemodule4");
                 assertTrue(false);
             } catch (e) {
-                assertEquals("Error: IOC bean [fakemodule3] requested, but no config found.", e);
+                assertEquals("Error: IOC bean [fakemodule4] requested, but no config found.", e);
                 jstestdriver.console.log("Got expected error: " + e);
             }
 

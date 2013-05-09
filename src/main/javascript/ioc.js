@@ -29,6 +29,10 @@
  *                 "app/logging/Logger": {
  *                     "type": "app/logging/Logger",
  *                     "params: { "logLevel": "DEBUG" }
+ *                 },
+ *                 "app/logging/HashTrackingLogger": {
+ *                     "type": "app/logging/HashTrackingLogger"
+ *                     "params": { "logger": "ref:ioc!app/logging/Logger" }
  *                 }
  *             }
  *         }
@@ -50,6 +54,11 @@
  *
  * A global bean config must still exist for the bean that declares its type! This mechanism just allows for runtime customization of the ctor params
  * when using the ioc plugin directly.
+ *
+ * Special parameter processing:
+ * String parameters starting with "ref:" are treated specially by this plugin. The remainder of the string following "ref:" is assumed to be an
+ * AMD module path (which could include the use of plugins like ioc!) and is loaded as a module, the return value of which is passed in place of
+ * the string as the parameters value.
  */
 define([
     "module"
@@ -73,6 +82,8 @@ define([
             load: function (name, parentRequire, onload, config) {
 
                 var bean = beans[name],
+                    modules,
+                    keys = [],
                     params = config && config.params;
 
                 if (bean) {
@@ -80,8 +91,22 @@ define([
                     //local bean config wins, otherwise use global
                     params = params || bean.params;
 
-                    parentRequire([bean.type], function (Module) {
-                        var instance = new Module(params);
+                    //collect modules, including embedded refs.
+                    modules = [bean.type];
+                    Object.keys(params || {}).forEach(function (key, idx) {
+                        var parts = params[key].toString().split("ref:");
+                        if (parts.length > 1) {
+                            modules.push(parts[1]);
+                            keys.push(key);
+                        }
+                    });
+
+                    parentRequire(modules, function() {
+                        var instance, args = arguments;
+                        keys.forEach(function (key, idx){
+                            params[key] = args[idx+1];
+                        });
+                        instance = new arguments[0](params);
                         onload(instance);
                     });
 
