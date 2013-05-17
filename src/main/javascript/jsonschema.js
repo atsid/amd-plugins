@@ -19,11 +19,14 @@
  * preparing IDs for ajax request, such as by prepending with a server name. A default formatter that leaves
  * the ID unmodified is supplied, to account for IDs that resolve properly already, or the use of other aliasing mechanisms.
  *
+ * A "sync" config option allows you to force this plugin to use a synchronous XHR instead of the requirejs text plugin.
+ * This is useful for projects that have synchronous dependency issues (e.g., those that are transitioning with dojo).
+ *
  * LIMITATION: the plugin does not yet attempt any extra id resolution from the jsonschema spec, such as "#".
  *
  */
 define([
-    "./text",
+    "./../../../../../Desktop/amd-plugins/src/main/javascript/text",
     "module"
 ], function (
     text,
@@ -35,6 +38,7 @@ define([
         },
         config = module.config(),
         formatter = config ? (config.formatter || defaultFormatter) : defaultFormatter,
+        sync = config.sync,
         plugin;
 
     function getSchema(name, parentRequire, callback) {
@@ -137,17 +141,28 @@ define([
         }
 
 
-        var formattedName = formatter(name);
-
-        //use the text plugin to get the raw schema text
-        text.get(parentRequire.toUrl(formattedName),
-            function (schemaText) {
+        var formattedName = formatter(name),
+            url = parentRequire.toUrl(formattedName),
+            xhr,
+            handler = function (schemaText) {
                 var json = JSON.parse(schemaText);
                 resolve(json, parentRequire, callback);
-            },
-            function (err) {
-                throw new Error(err); //text plugin assumes an err callback, we'll just throw so the message can be seen
-            });
+            };
+
+        //use native XHR if sync is requested, or delegate to text plugin
+        if (sync) {
+            xhr = new XMLHttpRequest();
+            xhr.open("GET", url, false);
+            xhr.send();
+            handler(xhr.responseText);
+        } else {
+            text.get(url,
+                handler,
+                function (err) {
+                    throw new Error(err); //text plugin assumes an err callback, we'll just throw so the message can be seen
+                });
+        }
+
 
     }
 

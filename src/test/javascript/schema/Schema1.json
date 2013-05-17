@@ -4,6 +4,9 @@
     "properties": {
         "subobject": {
             "$ref": "Subobject1"
+        },
+        "subobject2": {
+            "$ref": "Subobject2"
         }
     }
 }
