@@ -26,7 +26,7 @@
  *
  */
 define([
-    "./../../../../../Desktop/amd-plugins/src/main/javascript/text",
+    "./text",
     "module"
 ], function (
     text,
