@@ -64,7 +64,9 @@ define([
 
             }
 
-            return walk(schema, {});
+            var starter = {};
+            starter[schema.id] = true; //make sure to include the current schema
+            return walk(schema, starter);
 
         }
 
