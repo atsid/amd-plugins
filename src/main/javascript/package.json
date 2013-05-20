@@ -3,7 +3,7 @@
     "description": "A handy collection of AMD plugins.",
     "keywords": ["JSON Schema", "json-schema", "schema", "AMD", "ioc", "Inversion Of Control", "java properties"],
     "homepage": "http://atsid.github.io/",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "licenses": [
         {
             "type": "Apache2.0",
