@@ -13,12 +13,14 @@ require([
             jstestdriver.console.log("subobject1.recursive.id: " + schema1.properties.subobject.properties.recursive.id);
             jstestdriver.console.log("subobject2.id: " + schema1.properties.subobject2.id);
             jstestdriver.console.log("subobject2.recursiveArray.id: " + schema1.properties.subobject2.properties.recursiveArray.items.id);
+            jstestdriver.console.log("subobject2.recursiveArray.id.recursive.id: " + schema1.properties.subobject2.properties.recursiveArray.items.properties.recursive.id);
 
             assertEquals("Schema1", schema1.id);
             assertEquals("Subobject1", schema1.properties.subobject.id);
             assertEquals("Subobject1", schema1.properties.subobject.properties.recursive.id);
             assertEquals("Subobject2", schema1.properties.subobject2.id);
-            assertEquals("Subobject2", schema1.properties.subobject2.properties.recursiveArray.items.id);
+            assertEquals("SubSubobject1", schema1.properties.subobject2.properties.recursiveArray.items.id);
+            assertEquals("SubSubobject1", schema1.properties.subobject2.properties.recursiveArray.items.properties.recursive.id);
         }
 
     });

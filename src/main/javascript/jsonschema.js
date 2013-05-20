@@ -52,7 +52,7 @@ define([
 
                     var value = obj[key];
 
-                    if (key === "$ref" && value !== name) {
+                    if (key === "$ref" && !refs[value]) {
                         refs[value] = true; //using an object so we skip dups
                     } else if (typeof value === "object") {
                         walk(value, refs);
@@ -80,37 +80,6 @@ define([
             return result;
         }
 
-        //recursively descend an object, replacing all $ref values with the retrieved schemas
-        function placeRefs(schema, refObjects) {
-
-            function walk(obj, refObjects) {
-
-                Object.keys(obj).forEach(function (key) {
-
-                    var value = obj[key],
-                        subschema;
-
-                    if (key === "$ref") {
-                        subschema = findSchema(value, refObjects);
-                        obj = subschema;
-                        //resolve this one now if needed
-                        if (!obj.resolved) {
-                            obj.resolved = true; //don't do it again
-                            obj = walk(obj, refObjects);
-                        }
-                    } else if (typeof value === "object") {
-                        value = walk(value, refObjects);
-                        obj[key] = value;
-                    }
-
-                });
-
-                return obj;
-            }
-
-            return walk(schema, refObjects);
-        }
-
         //resolve an initial schema retrieved via ajax, delegating to this same plugin for child dependencies in a batch
         function resolve(schema, parentRequire, callback) {
 
@@ -119,7 +88,9 @@ define([
 
             //make a list of names from the map of ids found in ref search
             Object.keys(refs).forEach(function (ref) {
-                refNames.push(module.id + "!" + ref);
+                if (ref !== name) {
+                    refNames.push(module.id + "!" + ref);
+                }
             });
 
             if (refNames.length > 0) {
@@ -138,6 +109,39 @@ define([
             }
 
 
+        }
+
+        //recursively descend an object, replacing all $ref values with the retrieved schemas
+        function placeRefs(schema, refObjects) {
+
+            function walk(obj, refObjects) {
+
+                Object.keys(obj).forEach(function (key) {
+
+                    var value = obj[key],
+                        subschema;
+
+                    if (key === "$ref") {
+                        subschema = findSchema(value, refObjects);
+                        obj = subschema;
+                        if (!obj.resolved) {
+                            obj.resolved = true; //don't do it again
+                            obj = walk(obj, refObjects);
+                        }
+                    } else if (typeof value === "object") {
+                        if (!value.resolved) {
+                            value.resolved = true; //don't do it again
+                            value = walk(value, refObjects);
+                        }
+                        obj[key] = value;
+                    }
+
+                });
+
+                return obj;
+            }
+
+            return walk(schema, refObjects);
         }
 
 

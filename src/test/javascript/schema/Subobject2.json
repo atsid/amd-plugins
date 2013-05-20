@@ -8,7 +8,7 @@
         "recursiveArray": {
             "type": "array",
             "items": {
-                "$ref": "Subobject2"
+                "$ref": "SubSubobject1"
             }
         }
     }

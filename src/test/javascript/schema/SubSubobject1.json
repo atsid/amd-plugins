@@ -1,0 +1,9 @@
+{
+    "id": "SubSubobject1",
+    "description": "Schema intended to be indirectly referenced from the 'top' schema, to test deeper recursion workings",
+    "properties": {
+        "recursive": {
+            "$ref": "SubSubobject1"
+        }
+    }
+}
