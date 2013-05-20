@@ -64,9 +64,7 @@ define([
 
             }
 
-            var starter = {};
-            starter[schema.id] = true; //make sure to include the current schema
-            return walk(schema, starter);
+            return walk(schema, {});
 
         }
 
@@ -100,6 +98,9 @@ define([
                 parentRequire(refNames, function () {
 
                     var schemas = Array.prototype.slice.call(arguments);
+                    //make sure to include the current schema in case of recursion - we didn't want to ajax this again
+                    schemas.push(schema);
+
                     //we've got a set of schema objects, now we need to replace the $ref from the parent with them
                     schema = placeRefs(schema, schemas);
 
