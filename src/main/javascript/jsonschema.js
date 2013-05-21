@@ -38,7 +38,7 @@ define([
         },
         config = module.config(),
         formatter = config ? (config.formatter || defaultFormatter) : defaultFormatter,
-        sync = config.sync,
+        sync = config && config.sync,
         plugin;
 
     function getSchema(name, parentRequire, callback) {
