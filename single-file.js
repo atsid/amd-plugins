@@ -4,5 +4,5 @@
         "amd-plugins": "."
     },
     name: "amd-plugins/allpack",
-    out: "amd-plugins-1.0.4-min.js"
+    out: "amd-plugins-1.0.7-min.js"
 })
