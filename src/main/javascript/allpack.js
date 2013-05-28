@@ -2,6 +2,6 @@ define([
     "./ioc",
     "./jsonschema",
     "./properties",
-    "./text"
+    "./xhr"
 ], function() {
 });
