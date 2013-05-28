@@ -5,13 +5,23 @@
  * Doesn't support all the variants of the .properties format yet, but handles comments and some spaces fine.
  * See http://en.wikipedia.org/wiki/.properties
  *
- * Depends on jburke's text plugin: https://github.com/requirejs/text
+ * A basic async xhr function is used by default, but can be overridden by providing your own "fetch" function in the module config.
+ *
+ * An optional errorHandler for fetch errors can be supplied as well in the config.
+ *
  */
 define([
-    "./text"
-], function (text) {
+    "./xhr",
+    "module"
+], function (
+    xhr,
+    module
+) {
 
-    var plugin = {
+    var config = module.config() || {},
+        fetch = config.fetch || xhr,
+        errorHandler = config.errorHandler,
+        plugin = {
 
         /**
          * RequireJs API method for loading a module.
@@ -22,7 +32,7 @@ define([
          */
         load: function (name, parentRequire, onload, config) {
 
-            text.get(parentRequire.toUrl(name),
+            fetch(parentRequire.toUrl(name),
                 function (props) {
 
                     var json = {};
@@ -51,9 +61,7 @@ define([
                     onload(json);
 
                 },
-                function (err) {
-                    throw new Error(err); //text plugin assumes an err callback, we'll just throw so the message can be seen
-                });
+                errorHandler);
 
         }
 

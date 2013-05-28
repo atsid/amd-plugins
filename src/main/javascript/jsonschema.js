@@ -1,5 +1,5 @@
 /**
- * AMD plugin that loads JSON Schema files (using text plugin).
+ * AMD plugin that loads JSON Schema files.
  * See http://tools.ietf.org/html/draft-zyp-json-schema-03.
  *
  * It also resolves $refs within the schema, executing additional requests until
@@ -19,26 +19,30 @@
  * preparing IDs for ajax request, such as by prepending with a server name. A default formatter that leaves
  * the ID unmodified is supplied, to account for IDs that resolve properly already, or the use of other aliasing mechanisms.
  *
- * A "sync" config option allows you to force this plugin to use a synchronous XHR instead of the requirejs text plugin.
- * This is useful for projects that have synchronous dependency issues (e.g., those that are transitioning with dojo).
+ * An optional fetch function can be used to override the built-in native XHR fetch, for either backwards compatibility with legacy browsers, or synchronous loading.
+ *
+ * An optional errorHandler for fetch errors can be supplied as well in the config.
  *
  * LIMITATION: the plugin does not yet attempt any extra id resolution from the jsonschema spec, such as "#".
  *
  */
 define([
-    "./text",
+    "./xhr",
     "module"
 ], function (
-    text,
+    xhr,
     module
 ) {
 
-    var defaultFormatter = function (name) {
-            return name;
-        },
-        config = module.config(),
-        formatter = config ? (config.formatter || defaultFormatter) : defaultFormatter,
-        sync = config && config.sync,
+
+    function defaultFormatter(name) {
+        return name;
+    }
+
+    var config = module.config() || {},
+        formatter = config.formatter || defaultFormatter,
+        fetch = config.fetch || xhr,
+        errorHandler = config.errorHandler,
         plugin;
 
     function getSchema(name, parentRequire, callback) {
@@ -148,28 +152,13 @@ define([
         }
 
 
-        var formattedName = formatter(name),
-            url = parentRequire.toUrl(formattedName),
-            xhr,
-            handler = function (schemaText) {
-                var json = JSON.parse(schemaText);
-                resolve(json, parentRequire, callback);
-            };
+        var formattedName = formatter(name);
 
-        //use native XHR if sync is requested, or delegate to text plugin
-        if (sync) {
-            xhr = new XMLHttpRequest();
-            xhr.open("GET", url, false);
-            xhr.send();
-            handler(xhr.responseText);
-        } else {
-            text.get(url,
-                handler,
-                function (err) {
-                    throw new Error(err); //text plugin assumes an err callback, we'll just throw so the message can be seen
-                });
-        }
-
+        fetch(parentRequire.toUrl(formattedName), function (schemaText) {
+            //TODO: would it be easier to find all the $ref values with a regex match here before parsing JSON?
+            var json = JSON.parse(schemaText);
+            resolve(json, parentRequire, callback);
+        }, errorHandler);
 
     }
 
