@@ -29,8 +29,19 @@ The properties plugin loads Java-style name=value pair properties files and turn
 
 See http://en.wikipedia.org/wiki/.properties
 
+## windower.js
+This is a plugin to provide helpful utilities for cross-window work. It includes safe (origin restricted) postMessage
+capability, as well as a shared data store that sits in the topmost window but is accessible to all children (also via postMessage).
+
+Functions exposed are:
+- send (message): sends a JSON message to all windows managed by the topmost.
+- listen (callback): registers a callback for messages coming from any window managed by topmost.
+- unlisten(): unhooks callback for messages.
+- set (key, data): sets a data payload in the store, using a key
+- get (key, callback): requests a data payload from the store, using a key. Data is handed to callback when ready..
+
 ## TODO
-Need to move the require.js and text.js files into a lib directory so it is more clear that they are external dependencies.
+Need to move the require.js file into a lib directory so it is more clear that it is an external dependency.
 
 ## Compatibility
 ECMA5 compatibility is assumed - if you need to use in a legacy browser, consider a shim.

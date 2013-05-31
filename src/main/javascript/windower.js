@@ -42,7 +42,7 @@ define(function () {
 
             var children = {},
                 id = 0,
-                dataCache = {};
+                dataStore = {};
 
             return {
                 addChild: function (child) {
@@ -60,10 +60,10 @@ define(function () {
                     return "window-" + (++id);
                 },
                 getData: function (key) {
-                    return dataCache[key];
+                    return dataStore[key];
                 },
                 setData: function (key, data) {
-                    dataCache[key] = data;
+                    dataStore[key] = data;
                 }
             };
 
@@ -207,7 +207,22 @@ define(function () {
         },
 
         /**
-         * Gets a data object by key. Data is passed to callback when retrieved.
+         * Sets a data object in shared store, using a key.
+         * Sets using postMessage so there is no shared context.
+         * @param key
+         * @param data
+         */
+        set: function (key, data) {
+            topmost.postMessageProxy({
+                key: key,
+                data: data,
+                _type: "data-set-request",
+                _setter: window.windowerName
+            });
+        },
+
+        /**
+         * Gets a data object by key from the shared store. Data is passed to callback when retrieved.
          * The callback is used because we're going to pass it through postMessage asynchronously.
          * @param key
          * @param callback
@@ -231,21 +246,6 @@ define(function () {
                 _getter: window.windowerName
             });
 
-        },
-
-        /**
-         * Sets a data object in shared cache, using a key.
-         * Sets using postMessage so there is no shared context.
-         * @param key
-         * @param data
-         */
-        set: function (key, data) {
-            topmost.postMessageProxy({
-                key: key,
-                data: data,
-                _type: "data-set-request",
-                _setter: window.windowerName
-            });
         }
 
     };
