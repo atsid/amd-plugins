@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../require.js"></script>
+    <script src="../config.js"></script>
+    <script>
+        require(["plugins/windower"], function (windower) {
+
+
+            /*
+             * Supports testSetByExtendedAndGetByMain.
+             * We'll set some data in the global cache, so we can retrieve and assert on it in the main window.
+             */
+            windower.set("test-data", {"value": 12});
+
+
+        });
+
+    </script>
+</head>
+<body>
+</body>
+</html>

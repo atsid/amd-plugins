@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../require.js"></script>
+    <script src="../config.js"></script>
+    <script>
+        require(["plugins/windower"], function (windower) {
+
+
+            /*
+             * Supports testBasicMessaging.
+             * Just sends a simple message on startup.
+             */
+            windower.send({"title": "hi"});
+
+        });
+
+    </script>
+</head>
+<body>
+</body>
+</html>

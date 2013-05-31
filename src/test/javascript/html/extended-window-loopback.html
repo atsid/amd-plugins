@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../require.js"></script>
+    <script src="../config.js"></script>
+    <script>
+        require(["plugins/windower"], function (windower) {
+
+
+            /*
+             * Supports testLoopback and testLoopbackDeregistration.
+             * We'll listen on a loopback message so we can test for responses after this window has closed,
+             * to ensure cycles work and messaging is unhooked on window close properly.
+             */
+            windower.listen(function (msg) {
+                if (msg.loopback) {
+                    windower.send({"looped": true});
+                }
+            });
+
+
+            windower.send({"loaded": true});
+
+
+        });
+
+    </script>
+</head>
+<body>
+</body>
+</html>
