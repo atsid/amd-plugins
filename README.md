@@ -1,3 +1,4 @@
+[![Code Climate](https://codeclimate.com/github/atsid/amd-plugins/badges/gpa.svg)](https://codeclimate.com/github/atsid/amd-plugins)
 amd-plugins
 ===========
 
