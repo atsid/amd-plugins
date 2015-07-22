@@ -4,5 +4,5 @@ define([
     "./properties",
     "./windower",
     "./xhr"
-], function() {
+], function () {
 });

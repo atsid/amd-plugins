@@ -4,6 +4,8 @@ require([
     schema1
 ) {
 
+    'use strict';
+
     TestCase("TestJsonSchema", {
 
         testLoadJsonSchema: function () {

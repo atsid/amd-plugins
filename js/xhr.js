@@ -3,6 +3,8 @@
  */
 define(function () {
 
+    'use strict';
+
     return function (url, callback, errback) {
 
         var xhr = new XMLHttpRequest();

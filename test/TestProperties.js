@@ -8,6 +8,8 @@ require([
     props
 ) {
 
+    'use strict';
+
     TestCase("TestProperties", {
 
         //we expect the props variable from the plugin to be a simple JS map

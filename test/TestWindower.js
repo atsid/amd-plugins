@@ -4,7 +4,7 @@ require([
     windower
 ) {
 
-    "use strict";
+    'use strict';
 
     var win;
 
@@ -163,7 +163,7 @@ require([
 
         },
 
-        testUnlisten: function (queue) {
+        testUnlisten: function () {
 
             windower.listen(function () {});
 

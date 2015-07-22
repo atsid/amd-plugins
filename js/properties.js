@@ -18,6 +18,8 @@ define([
     module
 ) {
 
+    'use strict';
+
     var config = module.config() || {},
         fetch = config.fetch || xhr,
         errorHandler = config.errorHandler,
@@ -30,7 +32,7 @@ define([
          * @param {function} onload - callback function to invoke with this plugin's output
          * @param {object} config - config object for the plugin. NOTE this is not supported by dojo/bdload.
          */
-        load: function (name, parentRequire, onload, config) {
+        load: function (name, parentRequire, onload) {
 
             fetch(parentRequire.toUrl(name),
                 function (props) {

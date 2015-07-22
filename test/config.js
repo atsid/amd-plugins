@@ -1,4 +1,7 @@
 (function () {
+
+    'use strict';
+
     require.config({
         baseUrl: "/test/src",
         paths: {

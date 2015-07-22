@@ -34,6 +34,7 @@ define([
     module
 ) {
 
+    'use strict';
 
     function defaultFormatter(name) {
         return name;
@@ -164,7 +165,7 @@ define([
 
     plugin = {
 
-        load: function (name, parentRequire, onload, config) {
+        load: function (name, parentRequire, onload) {
 
             getSchema(name, parentRequire, onload);
 

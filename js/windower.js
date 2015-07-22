@@ -22,7 +22,7 @@
  */
 define(function () {
 
-    "use strict";
+    'use strict';
 
     function getFirstOpener(win) {
         if (win.opener) {

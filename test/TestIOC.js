@@ -16,6 +16,8 @@ require([
     refFakeModuleInstance
 ) {
 
+    'use strict';
+
     //for the direct ioc.load invocation tests, we'll just pass back the already-loaded module so we don't have to write async tests
     var mockRequire = function (deps, callback) {
         callback(FakeModuleConstructor);

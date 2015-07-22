@@ -1,8 +1,7 @@
 {
-    "es5":       true,
     "boss":      true,
     "browser":   true,
-    "node":      true,
+    "node":      false,
     "strict":    true,
     "white":     true,
     "smarttabs": true,
@@ -12,5 +11,5 @@
     "unused":    true,
     "onecase":   true,
     "indent":    4,
-    "globals": { "define": true, "require": true }
+    "globals": { "define": true, "require": true, "jstestdriver": true, "assertEquals": true, "TestCase": true, "AsyncTestCase": true, "assertTrue": true, "assertUndefined": true, "assertNotUndefined": true }
 }

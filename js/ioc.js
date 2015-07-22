@@ -66,6 +66,8 @@ define([
     module
 ) {
 
+    'use strict';
+
     var conf = module.config(),
         beans = conf ? conf.beans : {},
         plugin = {
@@ -93,7 +95,7 @@ define([
 
                     //collect modules, including embedded refs.
                     modules = [bean.type];
-                    Object.keys(params || {}).forEach(function (key, idx) {
+                    Object.keys(params || {}).forEach(function (key) {
                         var parts = params[key].toString().split("ref:");
                         if (parts.length > 1) {
                             modules.push(parts[1]);
@@ -101,10 +103,10 @@ define([
                         }
                     });
 
-                    parentRequire(modules, function() {
+                    parentRequire(modules, function () {
                         var instance, args = arguments;
-                        keys.forEach(function (key, idx){
-                            params[key] = args[idx+1];
+                        keys.forEach(function (key, idx) {
+                            params[key] = args[idx + 1];
                         });
                         instance = new arguments[0](params);
                         onload(instance);
