@@ -50,5 +50,14 @@ Need to move the require.js file into a lib directory so it is more clear that i
 ## Compatibility
 ECMA5 compatibility is assumed - if you need to use in a legacy browser, consider a shim.
 
-##License
+## Development
+
+Builds are done with grunt.
+
+1. Install node.js if you don't have it
+1. Install grunt-cli if you don't have it `npm install -g grunt-cli`
+1. Install deps `npm install`
+1. Run linter/tests `npm test`
+
+## License
 This software is licensed under the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0).
