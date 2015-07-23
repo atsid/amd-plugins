@@ -18,7 +18,7 @@
  * The topmost window will automatically close all children if it is unloaded, in order to guarantee synchronized state.
  * Because children automatically register and unregister, they can be refreshed and will reconnect to the message bus.
  *
- * TODO: this only allows exact origin matches. it might be nice to allow config to be supplied that expands the origin matching.
+ * TODO: this only allows exact origin matches. it might be nice to allow config to be supplied that expands the origin matching. (filed as issue #3)
  */
 define(function () {
 

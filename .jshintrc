@@ -1,7 +1,7 @@
 {
     "boss":      true,
     "browser":   true,
-    "node":      false,
+    "node":      true,
     "strict":    true,
     "white":     true,
     "smarttabs": true,
@@ -11,5 +11,5 @@
     "unused":    true,
     "onecase":   true,
     "indent":    4,
-    "globals": { "define": true, "require": true, "jstestdriver": true, "assertEquals": true, "TestCase": true, "AsyncTestCase": true, "assertTrue": true, "assertUndefined": true, "assertNotUndefined": true }
+    "globals": { "define": true, "require": true, "describe": true, "it": true, "assert": true, "afterEach": true, "AsyncTestCase": true, "assertTrue": true, "assertUndefined": true, "assertNotUndefined": true }
 }

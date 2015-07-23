@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         jshint: {
-            src: ['js/**/*.js', 'test/**/*.js', '!node_modules/**/*.*', '!test/require.js'],
+            src: ['js/**/*.js', 'test/**/*.js', '!node_modules/**/*.*', '!test/lib/**/*.js'],
             options: {
                 jshintrc: '.jshintrc'
             }
@@ -28,8 +28,8 @@ module.exports = function (grunt) {
                     paths: {
                         bullhorn: "."
                     },
-                    name: "bullhorn/ChannelFactory",
-                    out: "bullhorn-min.js"
+                    name: "plugins/allpack",
+                    out: "amd-plugins-min.js"
                 }
             }
         }

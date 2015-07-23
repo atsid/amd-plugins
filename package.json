@@ -4,12 +4,7 @@
     "keywords": ["JSON Schema", "json-schema", "schema", "AMD", "ioc", "Inversion Of Control", "java properties", "postMessage"],
     "homepage": "http://atsid.github.io/",
     "version": "1.0.9",
-    "licenses": [
-        {
-            "type": "Apache2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0"
-        }
-    ],
+    "license": "Apache-2.0",
     "contributors": [
         {
             "name": "natoverse"
