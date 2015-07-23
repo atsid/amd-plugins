@@ -24,7 +24,6 @@ module.exports = function (grunt) {
         requirejs: {
             compile: {
                 options: {
-                    optimize: 'none',
                     baseUrl: './js',
                     paths: {
                         plugins: '.'
