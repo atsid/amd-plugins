@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var allTestFiles = [],
     pathToModule = function (path) {
@@ -17,10 +17,10 @@ window.AsyncTestCase = function () {};
 
 require.config({
     // Karma serves files from '/base'
-    baseUrl: "/base",
+    baseUrl: '/base',
     paths: {
-        plugins: "js",
-        test: "test"
+        plugins: 'js',
+        test: 'test'
     },
 
     // ask Require.js to load these files (all our tests)
@@ -31,31 +31,31 @@ require.config({
 
     //below is config for the plugins that we're going to test out
     config: {
-        "plugins/ioc": {
-            "beans": {
-                "fakemodule1": {
-                    "type": "test/FakeModule",
-                    "params": {
-                        "name": "hello"
+        'plugins/ioc': {
+            'beans': {
+                'fakemodule1': {
+                    'type': 'test/FakeModule',
+                    'params': {
+                        'name': 'hello'
                     }
                 },
                 //no params on this one, as we're going to pass them into load() directly
-                "fakemodule2": {
-                    "type": "test/FakeModule"
+                'fakemodule2': {
+                    'type': 'test/FakeModule'
                 },
                 //params reference another bean.
-                "fakemodule3": {
-                    "type": "test/FakeModule",
-                    "params": {
-                        "title": "replaced title",
-                        "name": "ref:plugins/ioc!fakemodule1"
+                'fakemodule3': {
+                    'type': 'test/FakeModule',
+                    'params': {
+                        'title': 'replaced title',
+                        'name': 'ref:plugins/ioc!fakemodule1'
                     }
                 }
             }
         },
-        "plugins/jsonschema": {
+        'plugins/jsonschema': {
             formatter: function (name) {
-                return "test/schema/" + name + ".json";
+                return 'test/schema/' + name + '.json';
             }
         }
     }

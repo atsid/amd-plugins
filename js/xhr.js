@@ -18,7 +18,7 @@ define(function () {
                 if (status >= 400 && status < 600) {
                     //if you don't care about handling the error, we'll just swallow it.
                     if (errback) {
-                        errback(new Error("Problem loading [" + url + "] status: [" + status + "]"));
+                        errback(new Error('Problem loading [' + url + '] status: [' + status + ']'));
                     }
                 } else {
                     callback(xhr.responseText);

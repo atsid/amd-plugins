@@ -13,15 +13,15 @@ define([
     describe('properties', function () {
 
         it('basic properties are parsed and mapped correctly into json', function () {
-            assert.equal("hi", props.name);
+            assert.equal('hi', props.name);
         });
 
         it('dot-delimited properties are parsed and mapped correctly into json', function () {
-            assert.equal("1.2.3", props["dot.delimited"]);
+            assert.equal('1.2.3', props['dot.delimited']);
         });
 
         it('properties with spaces are parsed and mapped correctly into json', function () {
-            assert.equal("ok", props["with.spaces"]);
+            assert.equal('ok', props['with.spaces']);
         });
 
     });

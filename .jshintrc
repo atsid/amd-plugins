@@ -11,5 +11,6 @@
     "unused":    true,
     "onecase":   true,
     "indent":    4,
-    "globals": { "define": true, "require": true, "describe": true, "it": true, "assert": true, "afterEach": true, "AsyncTestCase": true, "assertTrue": true, "assertUndefined": true, "assertNotUndefined": true }
+    "quotmark": "single",
+    "globals": { "define": true, "require": true, "describe": true, "it": true, "assert": true, "afterEach": true }
 }

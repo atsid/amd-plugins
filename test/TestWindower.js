@@ -1,5 +1,5 @@
 define([
-    "plugins/windower"
+    'plugins/windower'
 ], function (
     windower
 ) {
@@ -10,7 +10,7 @@ define([
 
     //helper to open a window by name without having to re-type the path
     function openWindow(name) {
-        win = window.open("/base/test/html/" + name + ".html", name);
+        win = window.open('/base/test/html/' + name + '.html', name);
     }
 
 
@@ -28,11 +28,11 @@ define([
             it('new window sends message back to parent', function (done) {
 
                 windower.listen(function (msg) {
-                    assert.equal("hi", msg.title);
+                    assert.equal('hi', msg.title);
                     done();
                 });
 
-                openWindow("extended-window-basic");
+                openWindow('extended-window-basic');
 
             });
 
@@ -59,7 +59,7 @@ define([
 
                 });
 
-                openWindow("extended-window-loopback");
+                openWindow('extended-window-loopback');
 
             });
 
@@ -84,7 +84,7 @@ define([
 
                 });
 
-                openWindow("extended-window-set-ext");
+                openWindow('extended-window-set-ext');
 
             });
 
@@ -95,8 +95,8 @@ define([
                     //if it is just the loading event, set some data and tell the ext to go to the next step
                     //otherwise, this is the ext telling us it is done, so we want to assert the value that it sent back
                     if (msg.loaded) {
-                        windower.set("test-data-2", {"value": 27});
-                        windower.send({"op": "get it"}); //tell the extended window to check the data value and send it back
+                        windower.set('test-data-2', {'value': 27});
+                        windower.send({'op': 'get it'}); //tell the extended window to check the data value and send it back
                     } else {
                         assert.equal(27, msg.value);
                         done();
@@ -104,7 +104,7 @@ define([
 
                 });
 
-                openWindow("extended-window-set-main");
+                openWindow('extended-window-set-main');
 
             });
 

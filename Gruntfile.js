@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = function (grunt) {
 
@@ -24,12 +24,18 @@ module.exports = function (grunt) {
         requirejs: {
             compile: {
                 options: {
-                    baseUrl: "./js",
+                    optimize: 'none',
+                    baseUrl: './js',
                     paths: {
-                        plugins: "."
+                        plugins: '.'
                     },
-                    name: "plugins/allpack",
-                    out: "amd-plugins-min.js"
+                    include: [
+                        'plugins/ioc',
+                        'plugins/jsonschema',
+                        'plugins/properties',
+                        'plugins/windower',
+                        'plugins/xhr'],
+                    out: 'amd-plugins-min.js'
                 }
             }
         }
