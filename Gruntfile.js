@@ -26,7 +26,7 @@ module.exports = function (grunt) {
                 options: {
                     baseUrl: "./js",
                     paths: {
-                        bullhorn: "."
+                        plugins: "."
                     },
                     name: "plugins/allpack",
                     out: "amd-plugins-min.js"
