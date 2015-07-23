@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../require.js"></script>
-    <script src="../config.js"></script>
+    <script src="../lib/require.js"></script>
     <script>
-        require(["plugins/windower"], function (windower) {
+        require(["../../js/windower"], function (windower) {
 
 
             /*
@@ -13,6 +12,7 @@
              */
             windower.set("test-data", {"value": 12});
 
+            windower.send({'loaded': true});
 
         });
 

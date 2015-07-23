@@ -1,0 +1,40 @@
+{
+    "name": "amd-plugins",
+    "description": "A handy collection of AMD plugins.",
+    "keywords": ["JSON Schema", "json-schema", "schema", "AMD", "ioc", "Inversion Of Control", "java properties", "postMessage"],
+    "homepage": "http://atsid.github.io/",
+    "version": "1.0.9",
+    "license": "Apache-2.0",
+    "contributors": [
+        {
+            "name": "natoverse"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/atsid/amd-plugins.git"
+    },
+    "scripts": {
+        "test": "grunt lint test"
+    },
+    "dependencies": {
+	},
+    "devDependencies": {
+        "grunt": "0.4.2",
+        "mocha": "1.14.0",
+        "chai": "2.1.0",
+        "requirejs": "2.1.16",
+        "grunt-contrib-jshint": "0.7.2",
+        "grunt-mocha-test": "0.8.0",
+        "grunt-contrib-watch": "0.5.3",
+        "grunt-contrib-requirejs": "0.4.4",
+        "grunt-karma": "0.10.1",
+        "karma": "0.12.31",
+        "karma-mocha": "0.1.10",
+        "karma-mocha-reporter": "1.0.0",
+        "karma-chai": "0.1.0",
+        "karma-requirejs": "0.2.2",
+        "karma-chrome-launcher": "0.1.7",
+        "karma-phantomjs-launcher": "0.1.4"
+    }
+}

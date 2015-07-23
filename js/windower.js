@@ -4,9 +4,9 @@
  * See the very bottom for the public functions that are exposed by the plugin.
  *
  * The intent is to wrap up postMessage functionality behind a simple wrapper that deals with window listeners, etc.
- * Also, the data setting/getting is done via postMessage as well, in order to ensure "clean" transfer.
- * This means the data must be serializable. Part of the wrapper's activity then is to "hide" the data get/set
- * messages from normal message traffic. Of course, if you setup your own event listeners you can inspect those "private"
+ * Also, the data setting/getting is done via postMessage as well, in order to ensure 'clean' transfer.
+ * This means the data must be serializable. Part of the wrapper's activity then is to 'hide' the data get/set
+ * messages from normal message traffic. Of course, if you setup your own event listeners you can inspect those 'private'
  * messages, but the intent isn't to keep the data secret, merely to provide a clean API for shared data storage.
  *
  * At the very least an array of children must be maintained on the parent, so postMessage can be delegated properly.
@@ -18,11 +18,11 @@
  * The topmost window will automatically close all children if it is unloaded, in order to guarantee synchronized state.
  * Because children automatically register and unregister, they can be refreshed and will reconnect to the message bus.
  *
- * TODO: this only allows exact origin matches. it might be nice to allow config to be supplied that expands the origin matching.
+ * TODO: this only allows exact origin matches. it might be nice to allow config to be supplied that expands the origin matching. (filed as issue #3)
  */
 define(function () {
 
-    "use strict";
+    'use strict';
 
     function getFirstOpener(win) {
         if (win.opener) {
@@ -57,7 +57,7 @@ define(function () {
                     });
                 },
                 getNewWindowName: function () {
-                    return "window-" + (++id);
+                    return 'window-' + (++id);
                 },
                 getData: function (key) {
                     return dataStore[key];
@@ -94,14 +94,14 @@ define(function () {
             topmost.windowerFunctions.addChild(window);
 
             //if a child window gets refreshed, make sure to unhook it, or else it'll end up with duplicate messages later
-            window.addEventListener("unload", function () {
+            window.addEventListener('unload', function () {
                 topmost.windowerFunctions.removeChild(this);
             });
 
         } else {
 
-            //if we're the parent, we want to re-broadcast the messages (unless they are our "private" data transfer messages)
-            window.addEventListener("message", function (e) {
+            //if we're the parent, we want to re-broadcast the messages (unless they are our 'private' data transfer messages)
+            window.addEventListener('message', function (e) {
 
                 var type = e.data._type,
                     key = e.data.key,
@@ -110,18 +110,18 @@ define(function () {
 
                 if (e.origin === window.location.origin) {
 
-                    if (type === "data-set-request") {
+                    if (type === 'data-set-request') {
 
                         data = e.data.data;
                         topmost.windowerFunctions.setData(key, data);
 
-                    } else if (type === "data-get-request") {
+                    } else if (type === 'data-get-request') {
 
                         data = topmost.windowerFunctions.getData(key);
                         msg = {
                             key: key,
                             data: data,
-                            _type: "data-get-response",
+                            _type: 'data-get-response',
                             _getter: getter
                         };
 
@@ -148,7 +148,7 @@ define(function () {
             }, false);
 
             //and close all children when we close, because topmost is the master
-            window.addEventListener("unload", function () {
+            window.addEventListener('unload', function () {
                 topmost.windowerFunctions.iterateChildren(function (child) {
                     child.close();
                 });
@@ -172,7 +172,7 @@ define(function () {
 
         /**
          * Sets up window event listening to get sent messages from other windows.
-         * Unwraps event data from "message" event to simplify passing of messages.
+         * Unwraps event data from 'message' event to simplify passing of messages.
          * Does not listen on messages from the same window.
          * NOTE: only one listener is allowed at a time, which should be reasonable with this API.
          * It would be difficult otherwise to manage unregistering the events.
@@ -181,7 +181,7 @@ define(function () {
         listen: function (callback) {
 
             if (listener) {
-                throw new Error(window.windowerName + " already has a listener - please use windower.unlisten() first");
+                throw new Error(window.windowerName + ' already has a listener - please use windower.unlisten() first');
             }
 
             listener = function (e) {
@@ -190,18 +190,18 @@ define(function () {
                 }
             };
 
-            window.addEventListener("message", listener);
+            window.addEventListener('message', listener);
 
         },
 
         /**
-         * Unregisters listening on the "message" events with a given callback.
+         * Unregisters listening on the 'message' events with a given callback.
          * According to the postMessage spec, you must pass the same function that you registered with.
-         * Since we kept a copy of it (in the "listener" wrapper), all you need to do is call this method.
+         * Since we kept a copy of it (in the 'listener' wrapper), all you need to do is call this method.
          */
         unlisten: function () {
             if (listener) {
-                window.removeEventListener("message", listener);
+                window.removeEventListener('message', listener);
                 listener = null;
             }
         },
@@ -216,7 +216,7 @@ define(function () {
             topmost.postMessageProxy({
                 key: key,
                 data: data,
-                _type: "data-set-request",
+                _type: 'data-set-request',
                 _setter: window.windowerName
             });
         },
@@ -231,18 +231,18 @@ define(function () {
 
             var handler = function (e) {
                 if (e.origin === window.location.origin) {
-                    if (e.data._type === "data-get-response" && e.data.key === key) {
-                        window.removeEventListener("message", handler); //only want this once.
+                    if (e.data._type === 'data-get-response' && e.data.key === key) {
+                        window.removeEventListener('message', handler); //only want this once.
                         callback(e.data.data);
                     }
                 }
             };
 
-            window.addEventListener("message", handler);
+            window.addEventListener('message', handler);
 
             topmost.postMessageProxy({
                 key: key,
-                _type: "data-get-request",
+                _type: 'data-get-request',
                 _getter: window.windowerName
             });
 

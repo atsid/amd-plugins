@@ -5,18 +5,20 @@
  * Doesn't support all the variants of the .properties format yet, but handles comments and some spaces fine.
  * See http://en.wikipedia.org/wiki/.properties
  *
- * A basic async xhr function is used by default, but can be overridden by providing your own "fetch" function in the module config.
+ * A basic async xhr function is used by default, but can be overridden by providing your own 'fetch' function in the module config.
  *
  * An optional errorHandler for fetch errors can be supplied as well in the config.
  *
  */
 define([
-    "./xhr",
-    "module"
+    './xhr',
+    'module'
 ], function (
     xhr,
     module
 ) {
+
+    'use strict';
 
     var config = module.config() || {},
         fetch = config.fetch || xhr,
@@ -30,7 +32,7 @@ define([
          * @param {function} onload - callback function to invoke with this plugin's output
          * @param {object} config - config object for the plugin. NOTE this is not supported by dojo/bdload.
          */
-        load: function (name, parentRequire, onload, config) {
+        load: function (name, parentRequire, onload) {
 
             fetch(parentRequire.toUrl(name),
                 function (props) {
@@ -40,14 +42,14 @@ define([
                     if (props && props.length > 0) {
 
                         //just iterate the lines in the file's string content, pulling apart the name-value pairs
-                        props.split("\n").forEach(function (line) {
+                        props.split('\n').forEach(function (line) {
 
                             line = line.trim();
 
                             //avoid leading comment characters
-                            if (line.indexOf("#") !== 0 && line.indexOf("!") !== 0) {
+                            if (line.indexOf('#') !== 0 && line.indexOf('!') !== 0) {
 
-                                var tuple = line.split("="),
+                                var tuple = line.split('='),
                                     name = tuple[0].trim(),
                                     value = tuple[1].trim();
 

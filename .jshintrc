@@ -1,5 +1,4 @@
 {
-    "es5":       true,
     "boss":      true,
     "browser":   true,
     "node":      true,
@@ -12,5 +11,6 @@
     "unused":    true,
     "onecase":   true,
     "indent":    4,
-    "globals": { "define": true, "require": true }
+    "quotmark": "single",
+    "globals": { "define": true, "require": true, "describe": true, "it": true, "assert": true, "afterEach": true }
 }

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../require.js"></script>
-    <script src="../config.js"></script>
+    <script src="../lib/require.js"></script>
     <script>
 
         /*
@@ -10,10 +9,7 @@
          * The main window will set some data, and we'll then get it and send it back so we can assert on it in the main.
          * E.g., asserting that we got the correct data in our callback on this window.
          */
-        require(["plugins/windower"], function (windower) {
-
-
-            windower.send({"loaded": true});
+        require(["../../js/windower"], function (windower) {
 
             //we will wait until the main window tells us to get the data, then we'll send it back when it's ready
             windower.listen(function (msg) {
@@ -25,6 +21,8 @@
                 }
 
             });
+
+            windower.send({'loaded': true});
 
         });
 

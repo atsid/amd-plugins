@@ -9,7 +9,7 @@
  * This plugin works like so:
  * 1) Get a schema using ajax, from the configured location (such as a directory service, or file system)
  * 2) Recursively examine that schema for all $ref fields that point to a different schema
- * 3) Construct a list of "dependencies" from the $ref fields, and issue a parentRequire using this very same plugin
+ * 3) Construct a list of 'dependencies' from the $ref fields, and issue a parentRequire using this very same plugin
  * 4) Replace the $ref values with full objects once they are retrieved from the parentRequire
  *
  * In this manner, it will descend the schema graph until all are retrieved and attached to the original entry point schema.
@@ -23,17 +23,18 @@
  *
  * An optional errorHandler for fetch errors can be supplied as well in the config.
  *
- * LIMITATION: the plugin does not yet attempt any extra id resolution from the jsonschema spec, such as "#".
+ * LIMITATION: the plugin does not yet attempt any extra id resolution from the jsonschema spec, such as '#'.
  *
  */
 define([
-    "./xhr",
-    "module"
+    './xhr',
+    'module'
 ], function (
     xhr,
     module
 ) {
 
+    'use strict';
 
     function defaultFormatter(name) {
         return name;
@@ -56,9 +57,9 @@ define([
 
                     var value = obj[key];
 
-                    if (key === "$ref" && !refs[value]) {
+                    if (key === '$ref' && !refs[value]) {
                         refs[value] = true; //using an object so we skip dups
-                    } else if (typeof value === "object") {
+                    } else if (typeof value === 'object') {
                         walk(value, refs);
                     }
 
@@ -93,7 +94,7 @@ define([
             //make a list of names from the map of ids found in ref search
             Object.keys(refs).forEach(function (ref) {
                 if (ref !== name) {
-                    refNames.push(module.id + "!" + ref);
+                    refNames.push(module.id + '!' + ref);
                 }
             });
 
@@ -128,14 +129,14 @@ define([
                     var value = obj[key],
                         subschema;
 
-                    if (key === "$ref") {
+                    if (key === '$ref') {
                         subschema = findSchema(value, refObjects);
                         obj = subschema;
                         if (!obj.resolved) {
                             obj.resolved = true; //don't do it again
                             obj = walk(obj, refObjects);
                         }
-                    } else if (typeof value === "object") {
+                    } else if (typeof value === 'object') {
                         if (!value.resolved) {
                             value.resolved = true; //don't do it again
                             value = walk(value, refObjects);
@@ -164,7 +165,7 @@ define([
 
     plugin = {
 
-        load: function (name, parentRequire, onload, config) {
+        load: function (name, parentRequire, onload) {
 
             getSchema(name, parentRequire, onload);
 
