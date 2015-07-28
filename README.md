@@ -1,6 +1,7 @@
 [![Code Climate](https://codeclimate.com/github/atsid/amd-plugins/badges/gpa.svg)](https://codeclimate.com/github/atsid/amd-plugins)
 [![Build Status](https://travis-ci.org/atsid/amd-plugins.svg?branch=master)](https://travis-ci.org/atsid/amd-plugins)
 [![Dependency Status](https://david-dm.org/atsid/amd-plugins.svg)](https://david-dm.org/atsid/amd-plugins)
+[![Dev Dependency Status](https://david-dm.org/atsid/amd-plugins/dev-status.svg)](https://david-dm.org/atsid/amd-plugins)
 
 amd-plugins
 ===========
